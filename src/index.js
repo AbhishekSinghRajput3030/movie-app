@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import ReactDOM from 'react-dom';
 import {createStore,applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
@@ -36,16 +36,26 @@ const logger=({dispatch,getState})=>(next)=>(action)=> {
 const store= createStore(rootReducer,applyMiddleware(logger,thunk)); //pass reducer as argument
  console.log('store',store)
 
-// store.dispatch({
-//   type:'ADD_MOVIES', //takes object that is our action
-//   movies:[{name:'Superman'}]
-// });
+export const StoreContext = createContext();
+console.log('StoreContext', StoreContext);
 
-// console.log('After State', store.getState());
+class Provider extends React.Component {
+  render() {
+    const { store } = this.props;
+    return (
+      <StoreContext.Provider value={store}>
+        {this.props.children}
+      </StoreContext.Provider>
+    );
+  }
+}
 
 ReactDOM.render(
+  
   <React.StrictMode>
+    <Provider store={store}>
     <App store={store}/>
+    </Provider>,
   </React.StrictMode>,
   document.getElementById('root')
 );
