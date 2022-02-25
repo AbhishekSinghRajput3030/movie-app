@@ -23,7 +23,7 @@ const logger=({dispatch,getState})=>(next)=>(action)=> {
   if (typeof action!=='function') {
   console.log('ACTION_TYPE=',action.type);
   }
-  next(action);
+  next(action);  //to go to other middleware if present otherwise to dispatch
 }
 
 // const thunk=({dispatch,getState})=>(next)=>(action)=> {

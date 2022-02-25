@@ -7,22 +7,17 @@ import {ADD_MOVIES,
     ADD_SEARCH_RESULT,
 } from '../actions';
 
+
+//Initial state  and function for reducer movies (reducer 1)
 const initialMoviesState={
     list:[],
     favourites:[],
     showFavourites:false
 }  
 export function movies(state = initialMoviesState, action){
-    // if(action.type===ADD_MOVIES){
-    //     //since our current state is object,we ned to return new object we cant modify same object
-    //     return {
-    //         ...state,
-    //         list:action.movies
-    //     }
-    // }
-    // return state;
-switch(action.type) {
-    case ADD_MOVIES:
+switch(action.type)
+ {
+     case ADD_MOVIES:
         return{
             ...state,
             list:action.movies
@@ -52,15 +47,18 @@ switch(action.type) {
             };
         default:
         return state;
+     }
 }
-}
+
+//initial state and function for  searc reducer (reducer 2)
 const initialSearchState={
     result: {},
     showSearchResults: false
     
 };
+
 export function search (state=initialSearchState,action) {
-    switch(action.type) {
+    switch(action.type){
         case ADD_SEARCH_RESULT:
             return{
                 ...state,
@@ -77,16 +75,7 @@ export function search (state=initialSearchState,action) {
     }
 }
 
-// const initialRootState={
-//     movies: initialMoviesState,
-//     search: initialSearchState
-// }
-// export default function rootReducer (state=initialRootState, action) {
-//     return{
-//         movies: movies(state.movies,action),
-//         search: search(state.search,action)
-//     }
-// }
+//For combining both the reducers
 export default combineReducers({
     movies,  // as movies:movies is same as movies
     search   //as search:search is same as search
